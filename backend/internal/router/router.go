@@ -19,11 +19,15 @@ func Setup(cfg *config.Config) *gin.Engine {
 	r.Use(middleware.CORSMiddleware(cfg.FrontendURL))
 
 	api := r.Group("/api")
+	studentAuth := handlers.NewStudentAuthHandler(cfg)
 
 	public := api.Group("")
 	{
 		public.GET("/check-in/:id", handlers.GetActivityInfo)
 		public.POST("/check-in/:id", handlers.CheckIn)
+
+		public.POST("/student/register", studentAuth.Register)
+		public.POST("/student/login", studentAuth.Login)
 	}
 
 	protected := api.Group("")
@@ -44,6 +48,13 @@ func Setup(cfg *config.Config) *gin.Engine {
 		protected.POST("/activities/:id/generate-qr", qrHandler.GenerateQR)
 		protected.POST("/activities/:id/revoke-qr", qrHandler.RevokeQR)
 		protected.GET("/activities/:id/qr-image", qrHandler.DownloadQRImage)
+	}
+
+	studentProtected := api.Group("")
+	studentProtected.Use(middleware.StudentAuthMiddleware(cfg))
+	{
+		studentProtected.GET("/student/profile", studentAuth.GetProfile)
+		studentProtected.GET("/student/history", handlers.GetStudentHistory)
 	}
 
 	staticDir := filepath.Join(".", "web", "dist")
