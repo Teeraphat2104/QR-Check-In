@@ -1,0 +1,37 @@
+
+2026/06/06 11:54:38 [32mC:/Users/ASUS/projects/qr-check-in/backend/internal/database/database.go:29 [33mSLOW SQL >= 200ms
+[0m[31;1m[333.255ms] [33m[rows:1][35m SELECT count(*) FROM information_schema.tables WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'admins' AND table_type = 'BASE TABLE'[0m
+
+2026/06/06 11:54:38 [32mC:/Users/ASUS/projects/qr-check-in/backend/internal/database/database.go:29 [33mSLOW SQL >= 200ms
+[0m[31;1m[205.967ms] [33m[rows:1][35m SELECT CURRENT_DATABASE()[0m
+
+2026/06/06 11:54:38 [32mC:/Users/ASUS/projects/qr-check-in/backend/internal/database/database.go:29 [33mSLOW SQL >= 200ms
+[0m[31;1m[219.615ms] [33m[rows:-][35m SELECT c.column_name, c.is_nullable = 'YES', c.udt_name, c.character_maximum_length, c.numeric_precision, c.numeric_precision_radix, c.numeric_scale, c.datetime_precision, 8 * typlen, c.column_default, pd.description, c.identity_increment FROM information_schema.columns AS c JOIN pg_type AS pgt ON c.udt_name = pgt.typname LEFT JOIN pg_catalog.pg_description as pd ON pd.objsubid = c.ordinal_position AND pd.objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = c.table_name AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = c.table_schema)) where table_catalog = 'postgres' AND table_schema = CURRENT_SCHEMA() AND table_name = 'admins'[0m
+
+2026/06/06 11:54:39 [32mC:/Users/ASUS/projects/qr-check-in/backend/internal/database/database.go:29 [33mSLOW SQL >= 200ms
+[0m[31;1m[203.448ms] [33m[rows:-][35m SELECT constraint_name FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'postgres' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'admins' AND constraint_type = 'UNIQUE'[0m
+
+2026/06/06 11:54:39 [32mC:/Users/ASUS/projects/qr-check-in/backend/internal/database/database.go:29 [33mSLOW SQL >= 200ms
+[0m[31;1m[201.557ms] [33m[rows:-][35m SELECT c.column_name, constraint_name, constraint_type FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'postgres' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'admins'[0m
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /api/check-in/:id         --> qr-check-in/internal/handlers.GetActivityInfo (4 handlers)
+[GIN-debug] POST   /api/check-in/:id         --> qr-check-in/internal/handlers.CheckIn (4 handlers)
+[GIN-debug] POST   /api/admin/sync           --> qr-check-in/internal/handlers.SyncAdmin (5 handlers)
+[GIN-debug] GET    /api/admin/profile        --> qr-check-in/internal/handlers.GetProfile (5 handlers)
+[GIN-debug] GET    /api/activities           --> qr-check-in/internal/handlers.ListActivities (5 handlers)
+[GIN-debug] GET    /api/activities/:id       --> qr-check-in/internal/handlers.GetActivity (5 handlers)
+[GIN-debug] POST   /api/activities           --> qr-check-in/internal/handlers.CreateActivity (5 handlers)
+[GIN-debug] PUT    /api/activities/:id       --> qr-check-in/internal/handlers.UpdateActivity (5 handlers)
+[GIN-debug] DELETE /api/activities/:id       --> qr-check-in/internal/handlers.DeleteActivity (5 handlers)
+[GIN-debug] GET    /api/activities/:id/participants --> qr-check-in/internal/handlers.GetParticipants (5 handlers)
+[GIN-debug] POST   /api/activities/:id/generate-qr --> qr-check-in/internal/handlers.(*QRHandler).GenerateQR-fm (5 handlers)
+[GIN-debug] POST   /api/activities/:id/revoke-qr --> qr-check-in/internal/handlers.(*QRHandler).RevokeQR-fm (5 handlers)
+[GIN-debug] GET    /api/activities/:id/qr-image --> qr-check-in/internal/handlers.(*QRHandler).DownloadQRImage-fm (5 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://github.com/gin-gonic/gin/blob/master/docs/doc.md#dont-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on :8081
