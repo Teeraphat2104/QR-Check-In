@@ -7,7 +7,14 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(git remote *)",
-      "Bash(git branch *)"
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "Bash(npm install *)",
+      "Bash(npx tailwindcss *)",
+      "Bash(npm uninstall *)",
+      "Bash(ng generate *)",
+      "Skill(run)",
+      "Bash(docker compose build *)"
     ]
   }
 }
