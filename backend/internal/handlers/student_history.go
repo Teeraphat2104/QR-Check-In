@@ -36,10 +36,6 @@ func GetStudentHistory(c *gin.Context) {
 		return
 	}
 
-	if participants == nil {
-		participants = []models.ActivityParticipant{}
-	}
-
 	type HistoryItem struct {
 		ID          string `json:"id"`
 		ActivityID  string `json:"activity_id"`
@@ -51,7 +47,7 @@ func GetStudentHistory(c *gin.Context) {
 		CreatedAt   string `json:"created_at"`
 	}
 
-	var history []HistoryItem
+	history := []HistoryItem{}
 	for _, p := range participants {
 		item := HistoryItem{
 			ID:          p.ID.String(),

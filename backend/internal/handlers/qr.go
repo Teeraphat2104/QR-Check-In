@@ -60,7 +60,7 @@ func (h *QRHandler) GenerateQR(c *gin.Context) {
 	token := generateToken()
 	expiresAt := activity.Date.Add(24 * time.Hour)
 
-	activity.CheckInToken = token
+	activity.CheckInToken = &token
 	activity.CheckInTokenExpiresAt = &expiresAt
 
 	if err := database.DB.Save(&activity).Error; err != nil {
@@ -142,7 +142,7 @@ func (h *QRHandler) DownloadQRImage(c *gin.Context) {
 		return
 	}
 
-	if activity.CheckInToken == "" {
+	if activity.CheckInToken == nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"success": false,
 			"message": "no QR code generated for this activity",
@@ -150,7 +150,7 @@ func (h *QRHandler) DownloadQRImage(c *gin.Context) {
 		return
 	}
 
-	checkInURL := h.Config.FrontendURL + "/check-in/" + id.String() + "?token=" + activity.CheckInToken
+	checkInURL := h.Config.FrontendURL + "/check-in/" + id.String() + "?token=" + *activity.CheckInToken
 
 	png, err := qrcode.Encode(checkInURL, qrcode.Medium, 512)
 	if err != nil {

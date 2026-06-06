@@ -15,7 +15,7 @@ type Activity struct {
 	Location             string    `json:"location"`
 	Category             string    `json:"category"`
 	CoverImageURL        string    `json:"cover_image_url"`
-	CheckInToken         string    `gorm:"uniqueIndex" json:"check_in_token,omitempty"`
+	CheckInToken         *string   `gorm:"uniqueIndex" json:"check_in_token,omitempty"`
 	CheckInTokenExpiresAt *time.Time `json:"check_in_token_expires_at,omitempty"`
 	CreatedAt            time.Time `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt            time.Time `gorm:"autoUpdateTime" json:"updated_at"`

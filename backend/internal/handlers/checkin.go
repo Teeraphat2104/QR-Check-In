@@ -44,7 +44,7 @@ func CheckIn(c *gin.Context) {
 		return
 	}
 
-	if activity.CheckInToken == "" || activity.CheckInToken != token {
+	if activity.CheckInToken == nil || *activity.CheckInToken != token {
 		c.JSON(http.StatusUnauthorized, gin.H{
 			"success": false,
 			"message": "invalid check-in token",
@@ -173,7 +173,7 @@ func GetActivityInfo(c *gin.Context) {
 		return
 	}
 
-	if activity.CheckInToken == "" || activity.CheckInToken != token {
+	if activity.CheckInToken == nil || *activity.CheckInToken != token {
 		c.JSON(http.StatusUnauthorized, gin.H{
 			"success": false,
 			"message": "invalid check-in token",

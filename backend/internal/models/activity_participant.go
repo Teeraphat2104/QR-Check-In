@@ -13,12 +13,12 @@ type ActivityParticipant struct {
 	StudentID   uuid.UUID  `gorm:"type:uuid;not null;index" json:"student_id"`
 	Name        string     `gorm:"not null" json:"name"`
 	Faculty     string     `json:"faculty"`
-	ExtraData   string     `gorm:"type:jsonb" json:"extra_data,omitempty"`
+	ExtraData   *string    `gorm:"type:jsonb" json:"extra_data,omitempty"`
 	CheckedInAt *time.Time `json:"checked_in_at,omitempty"`
 	CreatedAt   time.Time  `gorm:"autoCreateTime" json:"created_at"`
 
 	Activity *Activity `gorm:"foreignKey:ActivityID" json:"activity,omitempty"`
-	Student  *Student  `gorm:"foreignKey:StudentID" json:"student,omitempty"`
+	Student  *Student  `gorm:"foreignKey:StudentID;references:ID" json:"student,omitempty"`
 }
 
 func (ap *ActivityParticipant) BeforeCreate(tx *gorm.DB) error {
